@@ -509,7 +509,7 @@ Private Function JoinCnnmaEx2(ta() As Variant, r As Long, aExcel As AnalizeExcel
             ' addInteger=3
             Set param = cmd1.CreateParameter(aExcel.Columns(i), adInteger, adParamInput, , ta(r, i))
             cmd1.Parameters.Append param
-        ElseIf aExcel.Types(aExcel.Columns(i)) = "text" Then
+        ElseIf aExcel.Types(aExcel.Columns(i)) = "text" Or aExcel.Types(aExcel.Columns(i)) = "character varying" Then
             Set param = cmd1.CreateParameter(aExcel.Columns(i), adBSTR, adParamInput, , ta(r, i))
             cmd1.Parameters.Append param
         ElseIf aExcel.Types(aExcel.Columns(i)) = "boolean" Then
