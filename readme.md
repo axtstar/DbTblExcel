@@ -22,7 +22,6 @@ https://github.com/vbaidiot/Ariawase#license
 
 * Windows
 * Excel（xlsmなのでExcel 2007以降の最近のやつ）
-  * templateフォルダに旧バージョンのxlmをおけばビルドできるかもしれません（未確認）
 * ODBCプロバイダの設定
   * ※Excelのbit版（32bit or 64bit）バージョンと同等のもの（の設定）が必要なハズです。
 
