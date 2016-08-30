@@ -30,6 +30,8 @@ Function GetAllTablesString(tables As String) As String
     GetAllTablesString = GetAllTablesString & "tc.constraint_name=ccu.constraint_name "
     GetAllTablesString = GetAllTablesString & ") C1 "
     GetAllTablesString = GetAllTablesString & "    ON  ( T.TABLE_SCHEMA=C1.table_schema AND T.TABLE_NAME = C1.TABLE_NAME AND T.COLUMN_NAME=C1.COLUMN_NAME) "
+    GetAllTablesString = GetAllTablesString & "WHERE"
+    GetAllTablesString = GetAllTablesString & "  T.table_schema != 'pg_catalog' and T.table_schema != 'information_schema' "
     GetAllTablesString = GetAllTablesString & "Order By T.TABLE_SCHEMA,T.TABLE_NAME,T.ORDINAL_POSITION) AS TOTALSUM"
     If tables <> "" Then GetAllTablesString = GetAllTablesString & " WHERE TableName ~ '" & tables & "'"
 End Function

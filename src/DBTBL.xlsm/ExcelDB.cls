@@ -12,6 +12,12 @@ Public cnt As Long
 Public target As AnalizeExcel
 
 Const adParamInput = 1
+Const adInteger = 3
+Const adDate = 7
+Const adBSTR = 8
+Const adBoolean = 11
+Const adBigInt = 20
+Const adDBTimeStamp = 135
 
 Function TableCount(cSheet As Worksheet) As String
 
@@ -21,7 +27,7 @@ Function TableCount(cSheet As Worksheet) As String
     Call target.Init(cSheet)
 
     'データベースの初期化
-    Set db = CreateObject("ADODB.connection")
+    Set db = CreateObject("DB.connection")
     db.ConnectionString = target.ConnectionString
     db.Open
     
