@@ -258,7 +258,7 @@ Function CreateBat(cSheet As Worksheet) As String
     For j = 1 To cnt
         For i = 1 To target.ColSize
            'CSVèoóÕ
-           f.WriteEx tmpWork(num, i)
+           f.WriteEx """" & tmpWork(num, i) & """"
            If i <> target.ColSize Then
                f.WriteEx target.Delimiter
            End If

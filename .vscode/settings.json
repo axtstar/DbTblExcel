@@ -3,5 +3,6 @@
       "files.encoding": "shiftjis",
       "files.associations": {
             "*.cls":"vb"
-      }
+      },
+      "terminal.integrated.shell.windows": "C:\\Windows\\sysnative\\cmd.exe"
 }
