@@ -14,6 +14,7 @@ Public Delimiter As String
 
 'Public RowSize As Long
 Public ColSize As Long
+Public Numbers As New Collection
 Public Columns As New Collection
 Public Types As New Collection
 Public RevertColumns As New Collection
@@ -60,6 +61,9 @@ Public Sub Init(mSheet As Worksheet)
     Dim i As Integer
     'ƒJƒ‰ƒ€
     For i = 1 To ColSize
+        With Numbers
+            .Add item:=currentSheet.Cells(3, 3 + i)
+        End With
         With Columns
             .Add item:=currentSheet.Cells(5, 3 + i)
         End With

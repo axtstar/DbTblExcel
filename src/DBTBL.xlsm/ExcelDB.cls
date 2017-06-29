@@ -258,14 +258,16 @@ Function CreateBat(cSheet As Worksheet) As String
     For j = 1 To cnt
         For i = 1 To target.ColSize
            'CSV出力
-           If target.Types(i) = "bigint" Or target.Types(i) = "integer" Then
-               f.WriteEx tmpWork(num, i)
-           Else
-               f.WriteEx """" & tmpWork(num, i) & """"
-           End If
-           
-           If i <> target.ColSize Then
-               f.WriteEx target.Delimiter
+           If IsNumeric(target.Numbers(i).Value2) Then '数値でない場合は出力スキップ
+                If target.Types(i) = "bigint" Or target.Types(i) = "integer" Then
+                    f.WriteEx tmpWork(num, i)
+                Else
+                    f.WriteEx """" & Replace(tmpWork(num, i), """", """""") & """"
+                End If
+
+                If i <> target.ColSize Then
+                    f.WriteEx target.Delimiter
+                End If
            End If
         Next
         
