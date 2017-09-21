@@ -110,7 +110,7 @@ Function Export(cSheet As Worksheet) As String
         Exit Function
     End If
     
-    Set rec = db.Execute("select * from " & target.tableName & j)
+    Set rec = db.Execute("select * from " & target.tableName & j & b13)
     
     'åãâ ÇÃèoóÕ
     Dim startRow, startLocate As Long
