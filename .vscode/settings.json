@@ -4,5 +4,8 @@
       "files.associations": {
             "*.cls":"vb"
       },
-      "terminal.integrated.shell.windows": "C:\\Windows\\sysnative\\cmd.exe"
+      "terminal.integrated.shell.windows": "C:\\Windows\\sysnative\\cmd.exe",
+      "[markdown]": {
+            "files.encoding": "utf8"
+      }
 }
