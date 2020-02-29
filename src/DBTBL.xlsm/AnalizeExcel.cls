@@ -24,6 +24,9 @@ Public Condition As New Collection
 Public Orders As New Collection
 Public currentSheet As Worksheet
 Public VbsString As String
+Public InsertString As String
+Public WhareString As String
+Public ColumnString As String
 
 Public IsDB2 As Boolean
 
@@ -41,10 +44,13 @@ Public Sub Init(mSheet As Worksheet)
     tableName = currentSheet.Cells(2, 4)
     
     On Error Resume Next
+    'ëSëÃê›íË
     VbsString = Sheets("devSheet").Cells(7, 3)
+    InsertString = Sheets("devSheet").Cells(9, 3)
     
     Dim connStr As String
     connStr = currentSheet.Cells(1, 4)
+    WhareString = currentSheet.Cells(13, 2)
     
     If InStr(connStr, "IBMDADB2") > 0 Then
         IsDB2 = True
@@ -93,7 +99,13 @@ Public Sub Init(mSheet As Worksheet)
                 .Add item:=currentSheet.Cells(13, 3 + i), Key:=currentSheet.Cells(5, 3 + i)
             End With
         End If
+        If currentSheet.Cells(3, 3 + i) <> "Åõ" And currentSheet.Cells(3, 3 + i) <> "" Then
+            ColumnString = ColumnString + currentSheet.Cells(5, 3 + i).Value  + " ,"
+        End If
     Next
+    IF Len(ColumnString) > 2 Then
+        ColumnString = Left(ColumnString, Len(ColumnString) - 2)
+    END IF
 
 End Sub
 

@@ -323,6 +323,24 @@ Function CreateBat(cSheet As Worksheet) As String
     
     f3.CloseEx
 
+    'èoóÕópSQLê∂ê¨
+    Dim f4 As New FileUtility
+    f4.Init
+    'è„èëÇ´Ç≈äJÇ´Ç‹Ç∑
+    Call f4.OpenFile(ActiveWorkbook.Path & "\" & target.tableName & ".pgpsql", 2)
+    
+    Dim writeInsertSql As String
+    
+    writeInsertSql = Replace(target.InsertString, "@TABLE", target.tableName)
+    writeInsertSql = Replace(writeInsertSql, "@WHERE", target.WhareString)
+    writeInsertSql = Replace(writeInsertSql, "@COLUMNS", target.ColumnString)
+    writeInsertSql = Replace(writeInsertSql, vbLf, vbCrLf)
+    
+    f4.WriteEx (writeInsertSql)
+    
+    f4.CloseEx
+
+
 End Function
 
 Function UpdateDB2(cSheet As Worksheet)
