@@ -98,10 +98,7 @@ Function Export(cSheet As Worksheet) As String
         If Len(j) > 4 Then
             j = Mid(j, 1, Len(j) - 5)
         End If
-    ElseIf cSheet.Cells(13, 2) <> "" Then
-        j = " Where "
     End If
-    
     If target.GetOrderString() <> "" Then
         j = j & " Order by " & target.GetOrderString()
     End If
