@@ -19,6 +19,19 @@ Const adBoolean = 11
 Const adBigInt = 20
 Const adDBTimeStamp = 135
 
+'文字列化
+Function getString(tp As String, str As Variant) As String
+   If InStr(tp, "timestamp") > 0 Then
+    'dateに一旦格納
+    Dim dt As Date
+    dt = CDate(str)
+    getString = Format(dt, "yyyy-mm-dd hh:nn:ss")
+    Else
+    getString = str
+   End If
+
+End Function
+
 Function TableCount(cSheet As Worksheet) As String
 
     Dim db, rec As Object
@@ -262,9 +275,9 @@ Function CreateBat(cSheet As Worksheet) As String
            'CSV出力
            If IsNumeric(target.Numbers(i).Value2) Then '数値でない場合は出力スキップ
                 If target.Types(i) = "bigint" Or target.Types(i) = "integer" Or target.Types(i) = "double precision" Then
-                    f.WriteEx tmpWork(num, i)
+                    f.WriteEx getString(target.Types(i), tmpWork(num, i))
                 Else
-                    f.WriteEx """" & Replace(tmpWork(num, i), """", """""") & """"
+                    f.WriteEx """" & Replace(getString(target.Types(i), tmpWork(num, i)), """", """""") & """"
                 End If
 
                 If i <> target.ColSize Then
