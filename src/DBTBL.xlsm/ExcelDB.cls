@@ -21,15 +21,28 @@ Const adDBTimeStamp = 135
 
 '文字列化
 Function getString(tp As String, str As Variant) As String
-   If InStr(tp, "timestamp") > 0 Then
-    'dateに一旦格納
-    Dim dt As Date
-    dt = CDate(str)
-    getString = Format(dt, "yyyy-mm-dd hh:nn:ss")
+   If InStr(tp, "timestamp") > 0 Or InStr(tp, "date") > 0 Or tp = "bigint" Or tp = "integer" Or tp = "double precision" Then
+    If str = "" Then
+     '空文字はNull
+     getString = ""
     Else
-    getString = str
+     Dim dt As Date
+     If InStr(tp, "timestamp") > 0 Then
+        'dateに一旦格納
+        dt = CDate(str)
+        getString = """" & Format(dt, "yyyy-mm-dd hh:nn:ss") & """"
+     ElseIf InStr(tp, "date") > 0 Then
+        'dateに一旦格納
+        dt = CDate(str)
+        getString = """" & Format(dt, "yyyy-mm-dd") & """"
+     Else
+        getString = str
+     End If
+    End If
+   Else
+    '文字列内のダブルクォートをエスケープしたのち、ダブルクォートで囲む
+    getString = """" & Replace(str, """", """""") & """"
    End If
-
 End Function
 
 Function TableCount(cSheet As Worksheet) As String
@@ -271,11 +284,7 @@ Function CreateBat(cSheet As Worksheet) As String
         For i = 1 To target.ColSize
            'CSV出力
            If IsNumeric(target.Numbers(i).Value2) Then '数値でない場合は出力スキップ
-                If target.Types(i) = "bigint" Or target.Types(i) = "integer" Or target.Types(i) = "double precision" Then
-                    f.WriteEx getString(target.Types(i), tmpWork(num, i))
-                Else
-                    f.WriteEx """" & Replace(getString(target.Types(i), tmpWork(num, i)), """", """""") & """"
-                End If
+                f.WriteEx getString(target.Types(i), tmpWork(num, i))
 
                 If i <> target.ColSize Then
                     f.WriteEx target.Delimiter
