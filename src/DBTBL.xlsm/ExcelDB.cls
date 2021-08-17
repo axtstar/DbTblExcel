@@ -53,7 +53,7 @@ Function TableCount(cSheet As Worksheet) As String
     Call target.Init(cSheet)
 
     'データベースの初期化
-    Set db = CreateObject("DB.connection")
+    Set db = CreateObject("ADODB.connection")
     db.ConnectionString = target.ConnectionString
     db.Open
     
