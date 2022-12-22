@@ -27,6 +27,7 @@ Public VbsString As String
 Public InsertString As String
 Public WhareString As String
 Public ColumnString As String
+Public ReturnCode As String
 
 Public IsDB2 As Boolean
 
@@ -40,6 +41,7 @@ Public Sub Init(mSheet As Worksheet)
     'シートから各種情報を取得
     ConnectionString = currentSheet.Cells(1, 4)
     Delimiter = currentSheet.Cells(2, 7)
+    ReturnCode = currentSheet.Cells(2, 9)
     
     tableName = currentSheet.Cells(2, 4)
     

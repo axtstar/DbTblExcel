@@ -309,7 +309,7 @@ Function CreateBat(cSheet As Worksheet) As String
         
         insertSql = "insert into " & target.tableName & " values (" & rightValue & ") ;"
         f2.WriteLine (insertSql)
-        f.WriteEx vbCrLf
+        f.WriteEx target.ReturnCode
         If j Mod arraySize = 0 Then
             startLocate = startLocate + arraySize
             tmpWork = target.currentSheet.Range(target.currentSheet.Cells(startLocate, 4), _

@@ -25,7 +25,7 @@ https://github.com/vbaidiot/Ariawase#license
 * ODBCプロバイダの設定
   * ※Excelのbit版（32bit or 64bit）バージョンと同等のもの（の設定）が必要なハズです。
 
-現状postgresのODBCみ動作確認しています。
+現状postgres,mysqlのODBCみ動作確認しています。
 
 # How to use
 
