@@ -24,6 +24,8 @@ Public Condition As New Collection
 Public Orders As New Collection
 Public currentSheet As Worksheet
 Public VbsString As String
+Public RoundIDs As Variant
+Public NoNumberings As Variant
 Public InsertString As String
 Public WhareString As String
 Public ColumnString As String
@@ -33,6 +35,18 @@ Public IsDB2 As Boolean
 
 Public LocR As Long
 Public LocL As Long
+
+Public Function IsInArray(stringToBeFound As String, arr As Variant) As Boolean
+    Dim i
+    For i = LBound(arr) To UBound(arr)
+        If arr(i) = stringToBeFound Then
+            IsInArray = True
+            Exit Function
+        End If
+    Next i
+    IsInArray = False
+
+End Function
 
 Public Sub Init(mSheet As Worksheet)
     '対象のシート
@@ -113,6 +127,11 @@ End Sub
 
 '現在のAnalizeExcelの内容をシートに反映する
 Public Function Put2Sheet(currentSheet As Worksheet, tableName As String, ConnectionString)
+    ' 全般設定
+    ' ここにあるカラムは〇とマークする
+    RoundIDs = Split(Sheets("devSheet").Cells(5, 3), ",")
+    ' ここにあるカラムはナンバリングしない
+    NoNumberings = Split(Sheets("devSheet").Cells(6, 3), ",")
 
     'シートに各種情報を設定
     currentSheet.Cells(1, 4) = ConnectionString
@@ -126,7 +145,13 @@ Public Function Put2Sheet(currentSheet As Worksheet, tableName As String, Connec
         'カラム
         i = RevertColumns(columnName)
         'No
-        currentSheet.Cells(3, 3 + i) = i
+        If IsInArray(CStr(columnName), RoundIDs) Then
+            currentSheet.Cells(3, 3 + i) = "〇"
+        ElseIf IsInArray(CStr(columnName), NoNumberings) Then
+            currentSheet.Cells(3, 3 + i) = ""
+        Else
+            currentSheet.Cells(3, 3 + i) = i
+        End If
         '和名
         currentSheet.Cells(4, 3 + i) = columnName
         'カラム名
