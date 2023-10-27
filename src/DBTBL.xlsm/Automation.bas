@@ -65,6 +65,7 @@ Sub GetAllTables()
     
     Dim target As New AnalizeExcel
     Dim tableName As String
+    Dim tableComment As String
     Dim shName As String
     cnt = 1
     total = 2
@@ -91,6 +92,7 @@ Sub GetAllTables()
                 Sheets("ê›íË").Cells(total, 2).Value = sht.Name
                 Sheets("ê›íË").Hyperlinks.Add Anchor:=Sheets("ê›íË").Cells(total, 2), Address:="", SubAddress:= _
                     "'" & sht.Name & "'!A1", TextToDisplay:="'" & sht.Name
+                Sheets("ê›íË").Cells(total, 4).Value = tableComment
                 Sheets("ê›íË").Cells(total, 5).Value = tableName
                     
                 total = total + 1
@@ -103,6 +105,7 @@ Sub GetAllTables()
             Set target = Nothing
             Set target = New AnalizeExcel
             tableName = rec.Fields("TableName")
+            tableComment = rec.Fields("TableComment")
             cnt = 1
         End If
         
@@ -178,6 +181,7 @@ Sub GetAllTables()
         Sheets("ê›íË").Cells(total, 2).Value = sht.Name
         Sheets("ê›íË").Hyperlinks.Add Anchor:=Sheets("ê›íË").Cells(total, 2), Address:="", SubAddress:= _
             "'" & sht.Name & "'!A1", TextToDisplay:="'" & sht.Name
+        Sheets("ê›íË").Cells(total, 4).Value = tableComment
         Sheets("ê›íË").Cells(total, 5).Value = tableName
         total = total + 1
         

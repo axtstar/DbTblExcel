@@ -123,7 +123,7 @@ Function Export(cSheet As Worksheet) As String
     
     Dim b13 As String
     If cSheet.Cells(13, 2) <> "" Then
-        b13 = cSheet.Cells(13, 2)
+        b13 = " " & cSheet.Cells(13, 2)
     End If
     
     'クエリーの実行前に件数を取得
