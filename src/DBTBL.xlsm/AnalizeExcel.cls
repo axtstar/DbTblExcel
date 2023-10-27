@@ -16,6 +16,7 @@ Public Delimiter As String
 Public ColSize As Long
 Public Numbers As New Collection
 Public Columns As New Collection
+Public ColumnComments As New Collection
 Public Types As New Collection
 Public RevertColumns As New Collection
 Public PrimaryKeys As New Collection
@@ -153,7 +154,7 @@ Public Function Put2Sheet(currentSheet As Worksheet, tableName As String, Connec
             currentSheet.Cells(3, 3 + i) = i
         End If
         '˜a–¼
-        currentSheet.Cells(4, 3 + i) = columnName
+        currentSheet.Cells(4, 3 + i) = ColumnComments(columnName)
         'ƒJƒ‰ƒ€–¼
         currentSheet.Cells(5, 3 + i) = columnName
         currentSheet.Cells(20, 3 + i) = columnName

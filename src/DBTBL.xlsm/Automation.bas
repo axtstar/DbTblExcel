@@ -107,12 +107,25 @@ Sub GetAllTables()
         End If
         
         Dim columnName As String
+        Dim columnComment As String
         
         columnName = rec.Fields("ColumnName").Value
+        columnComment = rec.Fields("ColumnComment").Value
+        If columnComment = "" Then
+            columnComment = columnName
+        End If
+
+        If columnComment = "" Then
+            columnComment = columnName
+        End If
         
         'フィールド名
         With target.Columns
             .Add item:=columnName
+        End With
+        '和名
+        With target.ColumnComments
+            .Add Key:=columnName, item:=columnComment
         End With
         'タイプ
         With target.Types
