@@ -125,7 +125,7 @@ restore.sqlをpsqlでデータを流してください。
 
 動作のデモ
 
-[![DBTblエクセルデモ](https://jp.axtstar.com/wp-content/uploads/2018/10/dbtbl.png)](https://youtu.be/Q9I2nwsZ-yM?cc_load_policy=1&loop=1&v=qL9GBq0V6Q4:embed:cite)
+[![DBTblエクセルデモ](https://jp.axtstar.com/wp-content/uploads/2018/10/dbtbl.png)](https://www.youtube.com/watch?v=Q9I2nwsZ-yM:embed:cite)
 
 # History
 
