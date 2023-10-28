@@ -27,6 +27,21 @@ https://github.com/vbaidiot/Ariawase#license
 
 現状postgres,mysqlのODBCみ動作確認しています。
 
+## ODBC
+
+ODBCドライバは下記で入手可能です
+
+ODBCドライバはExcelのbit vsersion（32bit or 64 bit）と合わせてください。
+
+### postgres odbc
+
+https://odbc.postgresql.org/
+
+
+### mysql odbc
+
+https://dev.mysql.com/downloads/connector/odbc/
+
 # How to use
 
 ## 設定シート
