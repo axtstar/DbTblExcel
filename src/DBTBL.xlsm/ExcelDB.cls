@@ -157,9 +157,7 @@ Function Export(cSheet As Worksheet) As String
     Do While Not rec.EOF
         tempWork(num - 1, 0) = realNum
         For i = 1 To target.ColSize
-            If target.IsDB2 = True And target.Types(target.Columns(i)) = "TIME" Then
-                tempWork(num - 1, i) = TimeFromTime(rec.Fields(target.Columns(i).Value))
-            ElseIf target.Types(target.Columns(i)) = "binary" Then
+            If target.Types(target.Columns(i)) = "binary" Then
                 tempWork(num - 1, i) = bin2str(rec.Fields(target.Columns(i).Value), target.Columns(i).Value)
             Else
                 tempWork(num - 1, i) = rec.Fields(target.Columns(i).Value)
@@ -521,16 +519,6 @@ Private Function JoinCnnmaEx(ta() As Variant, r As Long, aExcel As AnalizeExcel)
     For i = 1 To aExcel.ColSize
         If ta(r, i) = vbNullString And isMemberOfCollection(aExcel.NotNull, aExcel.Columns(i)) = False Then
             JoinCnnmaEx = JoinCnnmaEx & "null"
-        ElseIf aExcel.IsDB2 = True And aExcel.Types(aExcel.Columns(i)) = "BIGINT" Then
-            JoinCnnmaEx = JoinCnnmaEx & ta(r, i)
-        ElseIf aExcel.IsDB2 = True And aExcel.Types(aExcel.Columns(i)) = "SMALLINT" Then
-            JoinCnnmaEx = JoinCnnmaEx & ta(r, i)
-        ElseIf aExcel.IsDB2 = True And aExcel.Types(aExcel.Columns(i)) = "INTEGER" Then
-            JoinCnnmaEx = JoinCnnmaEx & ta(r, i)
-        ElseIf aExcel.IsDB2 = True And aExcel.Types(aExcel.Columns(i)) = "DECIMAL" Then
-            JoinCnnmaEx = JoinCnnmaEx & ta(r, i)
-        ElseIf aExcel.IsDB2 = True And aExcel.Types(aExcel.Columns(i)) = "TIME" Then
-            JoinCnnmaEx = JoinCnnmaEx & "'" & TimeFromTime(ta(r, i)) & "'"
         ElseIf aExcel.Types(aExcel.Columns(i)) = "binary" Then
             JoinCnnmaEx = JoinCnnmaEx & TimeFromTime(ta(r, i))
         Else
@@ -622,19 +610,7 @@ Private Function JoinDelEx(ta() As Variant, r As Long, aNal As AnalizeExcel)
     Dim i As Integer
     
     For i = 1 To aNal.PrimaryKeys.Count
-        If aNal.IsDB2 = True And aNal.Types(aNal.PrimaryKeys(i)) = "BIGINT" Then
-            JoinDelEx = JoinDelEx & aNal.PrimaryKeys(i) & " = " & ta(r, aNal.RevertColumns(aNal.PrimaryKeys(i)))
-        ElseIf aNal.IsDB2 = True And aNal.Types(aNal.PrimaryKeys(i)) = "SMALLINT" Then
-            JoinDelEx = JoinDelEx & aNal.PrimaryKeys(i) & " = " & ta(r, aNal.RevertColumns(aNal.PrimaryKeys(i)))
-        ElseIf aNal.IsDB2 = True And aNal.Types(aNal.PrimaryKeys(i)) = "INTEGER" Then
-            JoinDelEx = JoinDelEx & aNal.PrimaryKeys(i) & " = " & ta(r, aNal.RevertColumns(aNal.PrimaryKeys(i)))
-        ElseIf aNal.IsDB2 = True And aNal.Types(aNal.PrimaryKeys(i)) = "DECIMAL" Then
-            JoinDelEx = JoinDelEx & aNal.PrimaryKeys(i) & " = " & ta(r, aNal.RevertColumns(aNal.PrimaryKeys(i)))
-        ElseIf aNal.IsDB2 = True And aNal.Types(aNal.PrimaryKeys(i)) = "TIME" Then
-            JoinDelEx = JoinDelEx & aNal.PrimaryKeys(i) & " = '" & TimeFromTime(ta(r, aNal.RevertColumns(aNal.PrimaryKeys(i)))) & "'"
-        Else
-            JoinDelEx = JoinDelEx & aNal.PrimaryKeys(i) & " = '" & ta(r, aNal.RevertColumns(aNal.PrimaryKeys(i))) & "'"
-        End If
+        JoinDelEx = JoinDelEx & aNal.PrimaryKeys(i) & " = '" & ta(r, aNal.RevertColumns(aNal.PrimaryKeys(i))) & "'"
         
         If i <> aNal.PrimaryKeys.Count Then
             JoinDelEx = JoinDelEx & " and "

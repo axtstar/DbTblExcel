@@ -32,8 +32,6 @@ Public WhareString As String
 Public ColumnString As String
 Public ReturnCode As String
 
-Public IsDB2 As Boolean
-
 Public LocR As Long
 Public LocL As Long
 
@@ -69,11 +67,6 @@ Public Sub Init(mSheet As Worksheet)
     connStr = currentSheet.Cells(1, 4)
     WhareString = currentSheet.Cells(13, 2)
     
-    If InStr(connStr, "IBMDADB2") > 0 Then
-        IsDB2 = True
-    Else
-        IsDB2 = False
-    End If
 
     'ƒJƒ‰ƒ€
     Dim r As Range

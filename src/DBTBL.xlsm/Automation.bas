@@ -1,7 +1,7 @@
 Attribute VB_Name = "Automation"
 Option Explicit
 
-Sub GetAllData()
+Public Sub GetAllData()
     Dim exDb As New ExcelDB
     Dim message As String
     Dim sheet As Worksheet
@@ -22,7 +22,7 @@ Sub GetAllData()
 End Sub
 
 
-Sub DeleteSheets()
+Public Sub DeleteSheets()
     
     Dim x As Integer
     Dim bl As Boolean
