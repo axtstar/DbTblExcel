@@ -117,12 +117,12 @@ Public Sub Init(mSheet As Worksheet)
             End With
         End If
         If currentSheet.Cells(3, 3 + i) <> "Åõ" And currentSheet.Cells(3, 3 + i) <> "" Then
-            ColumnString = ColumnString + currentSheet.Cells(5, 3 + i).Value  + " ,"
+            ColumnString = ColumnString + currentSheet.Cells(5, 3 + i).Value + " ,"
         End If
     Next
-    IF Len(ColumnString) > 2 Then
+    If Len(ColumnString) > 2 Then
         ColumnString = Left(ColumnString, Len(ColumnString) - 2)
-    END IF
+    End If
 
 End Sub
 
