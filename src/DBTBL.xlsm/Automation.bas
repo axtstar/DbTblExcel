@@ -8,7 +8,7 @@ Sub GetAllData()
     
     For Each sheet In Worksheets
          Application.StatusBar = sheet.Name + "を処理中"
-        If sheet.Cells(3, 4).Value <> "" And sheet.Cells(1, 2).Value = "接続情報" Then
+        If sheet.Cells(3, 4).Value <> vbNullString And sheet.Cells(1, 2).Value = "接続情報" Then
             message = exDb.Export(sheet)
         End If
     Next
@@ -40,7 +40,7 @@ Sub DeleteSheets()
         x = x - 1
     End If
     x = x + 1
-    If Sheets("設定").Cells(x, 1).Value = "" Then
+    If Sheets("設定").Cells(x, 1).Value = vbNullString Then
         bl = False
     End If
     Wend
@@ -73,7 +73,7 @@ Sub GetAllTables()
         'テーブル名を調べて変更があれば、削除する
         If tableName <> rec.Fields("TableName") Then
             'シートに対して書き込みを行う
-            If tableName <> "" Then
+            If tableName <> vbNullString Then
                 'てんぷれをコピー
                 Sheets("てんぷれ").Copy After:=Sheets(Sheets.Count)
                 Dim sht As Worksheet
@@ -90,7 +90,7 @@ Sub GetAllTables()
                 '設定シートに記載
                 Sheets("設定").Cells(total, 1).Value = total - 1
                 Sheets("設定").Cells(total, 2).Value = sht.Name
-                Sheets("設定").Hyperlinks.Add Anchor:=Sheets("設定").Cells(total, 2), Address:="", SubAddress:= _
+                Sheets("設定").Hyperlinks.Add Anchor:=Sheets("設定").Cells(total, 2), Address:=vbNullString, SubAddress:= _
                     "'" & sht.Name & "'!A1", TextToDisplay:="'" & sht.Name
                 Sheets("設定").Cells(total, 4).Value = tableComment
                 Sheets("設定").Cells(total, 5).Value = tableName
@@ -114,11 +114,11 @@ Sub GetAllTables()
         
         columnName = rec.Fields("ColumnName").Value
         columnComment = rec.Fields("ColumnComment").Value
-        If columnComment = "" Then
+        If columnComment = vbNullString Then
             columnComment = columnName
         End If
 
-        If columnComment = "" Then
+        If columnComment = vbNullString Then
             columnComment = columnName
         End If
         
@@ -144,7 +144,7 @@ Sub GetAllTables()
             End With
         Else
             With target.PrimaryKeys
-                .Add Key:=columnName, item:=""
+                .Add Key:=columnName, item:=vbNullString
             End With
         End If
         'Not NULL
@@ -154,7 +154,7 @@ Sub GetAllTables()
             End With
         Else
             With target.NotNull
-                .Add Key:=columnName, item:=""
+                .Add Key:=columnName, item:=vbNullString
             End With
         End If
 
@@ -163,7 +163,7 @@ Sub GetAllTables()
     Loop
     
     '最後の残り
-    If tableName <> "" Then
+    If tableName <> vbNullString Then
         'てんぷれをコピー
         Sheets("てんぷれ").Copy After:=Sheets(Sheets.Count)
         
@@ -179,7 +179,7 @@ Sub GetAllTables()
         '設定シートに記載
         Sheets("設定").Cells(total, 1).Value = total - 1
         Sheets("設定").Cells(total, 2).Value = sht.Name
-        Sheets("設定").Hyperlinks.Add Anchor:=Sheets("設定").Cells(total, 2), Address:="", SubAddress:= _
+        Sheets("設定").Hyperlinks.Add Anchor:=Sheets("設定").Cells(total, 2), Address:=vbNullString, SubAddress:= _
             "'" & sht.Name & "'!A1", TextToDisplay:="'" & sht.Name
         Sheets("設定").Cells(total, 4).Value = tableComment
         Sheets("設定").Cells(total, 5).Value = tableName
@@ -237,7 +237,7 @@ Sub GetAllScript()
     
     f.WriteLine ("Set s=WScript.CreateObject(""WScript.Shell"")")
     
-    While str <> ""
+    While str <> vbNullString
         Dim exDb As New ExcelDB
         Dim message As String
         
@@ -282,7 +282,7 @@ Sub GetAllCount()
     Dim cnt As Long
     i = 2
     str = Sheets("設定").Cells(i, 2).Value
-    While str <> ""
+    While str <> vbNullString
         Dim exDb As New ExcelDB
         Dim message As String
         
@@ -332,7 +332,7 @@ Sub GetSchema()
     On Error Resume Next
     
     For Each k In tbl.Keys
-        If k.Name <> "" Then
+        If k.Name <> vbNullString Then
             keyCol.Add (k.Name)
         End If
     Next
@@ -473,9 +473,10 @@ Sub SetSheetsLink()
     Dim i As Integer
     i = 1
     For Each wk In Sheets
-        Sheets("設定").Hyperlinks.Add Anchor:=Cells(i + 1, 2), Address:="", SubAddress:= _
+        Sheets("設定").Hyperlinks.Add Anchor:=Cells(i + 1, 2), Address:=vbNullString, SubAddress:= _
             "'" & wk.Name & "'!A1", TextToDisplay:="'" & wk.Name & "'!A1"
         i = i + 1
     Next
 End Sub
+
 

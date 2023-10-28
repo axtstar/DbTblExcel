@@ -22,9 +22,9 @@ Const adDBTimeStamp = 135
 '•¶Žš—ñ‰»
 Function getString(tp As String, str As Variant) As String
    If InStr(tp, "timestamp") > 0 Or InStr(tp, "date") > 0 Or tp = "bigint" Or tp = "integer" Or tp = "double precision" Then
-    If str = "" Then
+    If str = vbNullString Then
      '‹ó•¶Žš‚ÍNull
-     getString = ""
+     getString = vbNullString
     Else
      Dim dt As Date
      If InStr(tp, "timestamp") > 0 Then
@@ -87,7 +87,7 @@ Function Export(cSheet As Worksheet) As String
     
     Dim max As Long
     
-    If cSheet.Cells(12, 2).Value <> "" Then
+    If cSheet.Cells(12, 2).Value <> vbNullString Then
         max = cSheet.Cells(12, 2).Value
     End If
 
@@ -100,11 +100,11 @@ Function Export(cSheet As Worksheet) As String
     
     On Error Resume Next
     
-    j = ""
+    j = vbNullString
     If target.Condition.Count > 0 Then
         j = " Where "
         For i = 1 To target.Columns.Count
-            If target.Condition.item(target.Columns(i)) <> "" Then
+            If target.Condition.item(target.Columns(i)) <> vbNullString Then
                 j = j & target.Columns(i) & "= '" & target.Condition.item(target.Columns(i)) & "' AND "
             End If
         Next
@@ -112,7 +112,7 @@ Function Export(cSheet As Worksheet) As String
             j = Mid(j, 1, Len(j) - 5)
         End If
     End If
-    If target.GetOrderString() <> "" Then
+    If target.GetOrderString() <> vbNullString Then
         j = j & " Order by " & target.GetOrderString()
     End If
 
@@ -122,7 +122,7 @@ Function Export(cSheet As Worksheet) As String
     db.Open
     
     Dim b13 As String
-    If cSheet.Cells(13, 2) <> "" Then
+    If cSheet.Cells(13, 2) <> vbNullString Then
         b13 = " " & cSheet.Cells(13, 2)
     End If
     
@@ -519,7 +519,7 @@ Private Function JoinCnnmaEx(ta() As Variant, r As Long, aExcel As AnalizeExcel)
     Dim i As Integer
     
     For i = 1 To aExcel.ColSize
-        If ta(r, i) = "" And isMemberOfCollection(aExcel.NotNull, aExcel.Columns(i)) = False Then
+        If ta(r, i) = vbNullString And isMemberOfCollection(aExcel.NotNull, aExcel.Columns(i)) = False Then
             JoinCnnmaEx = JoinCnnmaEx & "null"
         ElseIf aExcel.IsDB2 = True And aExcel.Types(aExcel.Columns(i)) = "BIGINT" Then
             JoinCnnmaEx = JoinCnnmaEx & ta(r, i)
@@ -582,7 +582,7 @@ Private Function TimeFromTime(var As Variant) As String
     re.Global = False
     
     If IsNull(var) Then
-        TimeFromTime = ""
+        TimeFromTime = vbNullString
         Exit Function
     End If
     
@@ -642,4 +642,5 @@ Private Function JoinDelEx(ta() As Variant, r As Long, aNal As AnalizeExcel)
     Next
     
 End Function
+
 

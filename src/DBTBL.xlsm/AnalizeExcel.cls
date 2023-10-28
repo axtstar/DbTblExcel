@@ -38,7 +38,7 @@ Public LocR As Long
 Public LocL As Long
 
 Public Function IsInArray(stringToBeFound As String, arr As Variant) As Boolean
-    Dim i
+    Dim i As Integer
     For i = LBound(arr) To UBound(arr)
         If arr(i) = stringToBeFound Then
             IsInArray = True
@@ -62,8 +62,8 @@ Public Sub Init(mSheet As Worksheet)
     
     On Error Resume Next
     '全体設定
-    VbsString = Sheets("devSheet").Cells(7, 3)
-    InsertString = Sheets("devSheet").Cells(9, 3)
+    VbsString = ActiveWorkbook("devSheet").Cells(7, 3)
+    InsertString = ActiveWorkbook("devSheet").Cells(9, 3)
     
     Dim connStr As String
     connStr = currentSheet.Cells(1, 4)
@@ -106,28 +106,28 @@ Public Sub Init(mSheet As Worksheet)
                 .Add item:=currentSheet.Cells(5, 3 + i)
             End With
         End If
-        If currentSheet.Cells(11, 3 + i) <> "" Then
+        If currentSheet.Cells(11, 3 + i) <> vbNullString Then
             With Orders
                 .Add item:=currentSheet.Cells(5, 3 + i), Key:=CStr(currentSheet.Cells(11, 3 + i))
             End With
         End If
-        If currentSheet.Cells(13, 3 + i) <> "" Then
+        If currentSheet.Cells(13, 3 + i) <> vbNullString Then
             With Condition
                 .Add item:=currentSheet.Cells(13, 3 + i), Key:=currentSheet.Cells(5, 3 + i)
             End With
         End If
-        If currentSheet.Cells(3, 3 + i) <> "○" And currentSheet.Cells(3, 3 + i) <> "" Then
+        If currentSheet.Cells(3, 3 + i) <> "○" And currentSheet.Cells(3, 3 + i) <> vbNullString Then
             ColumnString = ColumnString + currentSheet.Cells(5, 3 + i).Value + " ,"
         End If
     Next
     If Len(ColumnString) > 2 Then
-        ColumnString = Left(ColumnString, Len(ColumnString) - 2)
+        ColumnString = Left$(ColumnString, Len(ColumnString) - 2)
     End If
 
 End Sub
 
 '現在のAnalizeExcelの内容をシートに反映する
-Public Function Put2Sheet(currentSheet As Worksheet, tableName As String, ConnectionString)
+Public Function Put2Sheet(currentSheet As Worksheet, tableName As String, ConnectionString As Variant) As Variant
     ' 全般設定
     ' ここにあるカラムは〇とマークする
     RoundIDs = Split(Sheets("devSheet").Cells(5, 3), ",")
@@ -149,7 +149,7 @@ Public Function Put2Sheet(currentSheet As Worksheet, tableName As String, Connec
         If IsInArray(CStr(columnName), RoundIDs) Then
             currentSheet.Cells(3, 3 + i) = "〇"
         ElseIf IsInArray(CStr(columnName), NoNumberings) Then
-            currentSheet.Cells(3, 3 + i) = ""
+            currentSheet.Cells(3, 3 + i) = vbNullString
         Else
             currentSheet.Cells(3, 3 + i) = i
         End If
@@ -198,12 +198,12 @@ Public Function GetRowSize() As Long
     Dim r As Long
     '列数と行数の取得
     
-    If currentSheet.Cells(21, 3).Value = "" Then
+    If currentSheet.Cells(21, 3).Value = vbNullString Then
         GetRowSize = 0
         Exit Function
     End If
     
-    If currentSheet.Cells(22, 3).Value = "" Then
+    If currentSheet.Cells(22, 3).Value = vbNullString Then
         GetRowSize = 1
         Exit Function
     End If
