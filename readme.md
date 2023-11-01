@@ -42,6 +42,26 @@ https://odbc.postgresql.org/
 
 https://dev.mysql.com/downloads/connector/odbc/
 
+Windows (x86, 64-bit), MSI Installerなどをご利用ください。
+
+確認したところ上記以外に、[Microsoft Visual C++ Redistributable 2019以降](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist)が必要のようでした。
+
+
+### ODBC設定方法
+
+ODBC設定を開いて、ExcelのBitバージョンの設定で設定を行います。
+
+![ODBCパネル](images/odbc_64bit.png)
+
+追加(ADD)で設定可能です。
+
+![Add datasource](images/new_datasource.png)
+
+Data Source Nameがマクロで使用する名前ですのでわかりやすい名前を設定してください。
+
+残りの設定はターゲットになるmysqlの接続情報を設定します。
+![Mysql ODBC](images/mysql_odbc.png)
+
 # How to use
 
 ## 設定シート
